@@ -1,52 +1,101 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-    <title>Admin Dashboard</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FreshCart Admin Dashboard</title>
+
+    @vite(['resources/css/styles.css', 'resources/js/script.js'])
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
 </head>
-<body class="bg-gray-100">
 
-<div class="flex min-h-screen">
+<body>
+    <div class="app-shell">
+        <aside class="sidebar" aria-label="Primary">
+            <a class="brand" href="#">
+                <span class="brand-mark">F</span>
 
-    <!-- Sidebar -->
-    <div class="w-64 bg-gray-900 text-white p-5">
-        <h2 class="text-xl font-bold mb-6">Admin Panel</h2>
+                <span>
+                    <strong>FreshCart</strong>
+                    <small>Admin</small>
+                </span>
+            </a>
 
-        <ul>
-            <li class="mb-3"><a href="#" class="hover:text-gray-300">Dashboard</a></li>
-            <li class="mb-3"><a href="#" class="hover:text-gray-300">Products</a></li>
-            <li class="mb-3"><a href="#" class="hover:text-gray-300">Orders</a></li>
-            <li class="mb-3"><a href="#" class="hover:text-gray-300">Users</a></li>
-        </ul>
+            <nav class="nav-list">
+                <a class="nav-item active" href="#">
+                    <span class="icon">D</span>
+                    Dashboard
+                </a>
+
+                <a class="nav-item" href="#">
+                    <span class="icon">O</span>
+                    Orders
+                </a>
+
+                <a class="nav-item" href="#">
+                    <span class="icon">P</span>
+                    Products
+                </a>
+
+                <a class="nav-item" href="#">
+                    <span class="icon">C</span>
+                    Customers
+                </a>
+
+                <a class="nav-item" href="#">
+                    <span class="icon">A</span>
+                    Analytics
+                </a>
+
+                <a class="nav-item" href="#">
+                    <span class="icon">S</span>
+                    Settings
+                </a>
+            </nav>
+
+            <div class="store-card">
+                <p>Today</p>
+                <strong>96% fulfillment</strong>
+                <span>18 orders ready for pickup</span>
+            </div>
+        </aside>
+
+        <main class="main-content">
+
+            <header class="topbar">
+                <div>
+                    <p class="eyebrow">Food ecommerce operations</p>
+                    <h1>Admin Dashboard</h1>
+                </div>
+
+                <div class="topbar-actions">
+                    <label class="search">
+                        <span>/</span>
+
+                        <input
+                            type="search"
+                            placeholder="Search orders, products, customers"
+                        >
+                    </label>
+
+                    <button class="button secondary">
+                        Export
+                    </button>
+
+                    <button class="button primary">
+                        Add Product
+                    </button>
+                </div>
+            </header>
+
+        </main>
     </div>
-
-    <!-- Main Content -->
-    <div class="flex-1 p-6">
-
-        <h1 class="text-2xl font-bold mb-4">Dashboard</h1>
-
-        <div class="grid grid-cols-3 gap-4">
-
-            <div class="bg-white p-4 rounded shadow">
-                <h3 class="text-gray-500">Total Products</h3>
-                <p class="text-2xl font-bold">10</p>
-            </div>
-
-            <div class="bg-white p-4 rounded shadow">
-                <h3 class="text-gray-500">Total Orders</h3>
-                <p class="text-2xl font-bold">12 tas puro si raf</p>
-            </div>
-
-            <div class="bg-white p-4 rounded shadow">
-                <h3 class="text-gray-500">Total Users</h3>
-                <p class="text-2xl font-bold">si gab lang </p>
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
-
 </body>
 </html>
