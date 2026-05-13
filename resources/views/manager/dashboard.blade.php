@@ -23,7 +23,7 @@
             </header>
 
             <section class="rounded-lg border border-neutral-200 bg-white p-8 shadow-sm dark:border-neutral-700 dark:bg-zinc-900">
-                <p class="text-sm font-medium text-yellow-700 dark:text-yellow-400">Manager Area</p>
+                <p class="text-sm font-medium text-yellow-700 dark:text-yellow-400">Raf Manager Area</p>
                 <h1 class="mt-2 text-3xl font-semibold">Manager Dashboard</h1>
                 <p class="mt-2 text-sm text-neutral-500 dark:text-neutral-400">Welcome to the manager area.</p>
             </section>
