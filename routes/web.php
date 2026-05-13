@@ -1,15 +1,11 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+require __DIR__.'/customer.php';
 
-Route::view('/', 'home')->name('home');
+require __DIR__.'/admin.php';
 
-Route::view('/dashboard', 'dashboard')
-    ->middleware(['auth'])
-    ->name('dashboard');
+require __DIR__.'/manager.php';
 
-Route::get('/admin/dashboard', function () {
-    return view('admin.dashboard');
-});
+require __DIR__.'/settings.php';
 
 require __DIR__.'/auth.php';

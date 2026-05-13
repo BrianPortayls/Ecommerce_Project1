@@ -35,60 +35,69 @@ new #[Layout('components.layouts.auth')] class extends Component {
     }
 }; ?>
 
-<div class="flex flex-col gap-6">
-    <x-auth-header title="Create an account" description="Enter your details below to create your account" />
+<main class="auth-page">
+    <div class="container">
+        <div class="row auth-shell g-5">
+            <section class="col-lg-6">
+                <a href="{{ route('home') }}" class="auth-brand" wire:navigate>
+                    <span class="brand-mark"><i class="fa-solid fa-utensils"></i></span>
+                    {{ config('app.name', 'Micaller') }}
+                </a>
 
-    <!-- Session Status -->
-    <x-auth-session-status class="text-center" :status="session('status')" />
+                <div class="auth-copy mt-5">
+                    <span class="auth-kicker"><i class="fa-solid fa-heart"></i> Start ordering</span>
+                    <h1 class="auth-title">Create your account for faster food days.</h1>
+                    <p class="auth-text">Save your details, reach the menu quickly, and get back to the meals you already know you want.</p>
+                </div>
 
-    <form wire:submit="register" class="flex flex-col gap-6">
-        <!-- Name -->
-        <div class="grid gap-2">
-            <flux:input wire:model="name" id="name" label="{{ __('Name') }}" type="text" name="name" required autofocus autocomplete="name" placeholder="Full name" />
+                <img class="auth-hero-image" src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?q=80&w=1200&auto=format&fit=crop" alt="Fresh meal bowl">
+            </section>
+
+            <section class="col-lg-6">
+                <div class="auth-card">
+                    <div class="auth-card-header">
+                        <span class="auth-kicker">Register</span>
+                        <h2 class="auth-card-title">Create account</h2>
+                        <p class="auth-card-text">Fill in the form below to join {{ config('app.name', 'Micaller') }}.</p>
+                    </div>
+
+                    <x-auth-session-status class="auth-alert mb-3" :status="session('status')" />
+
+                    <form wire:submit="register">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Name</label>
+                            <input wire:model="name" id="name" name="name" type="text" class="form-control @error('name') is-invalid @enderror" placeholder="Full name" required autofocus autocomplete="name">
+                            @error('name') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email address</label>
+                            <input wire:model="email" id="email" name="email" type="email" class="form-control @error('email') is-invalid @enderror" placeholder="you@example.com" required autocomplete="email">
+                            @error('email') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input wire:model="password" id="password" name="password" type="password" class="form-control @error('password') is-invalid @enderror" placeholder="Password" required autocomplete="new-password">
+                            @error('password') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="password_confirmation" class="form-label">Confirm password</label>
+                            <input wire:model="password_confirmation" id="password_confirmation" name="password_confirmation" type="password" class="form-control" placeholder="Confirm password" required autocomplete="new-password">
+                        </div>
+
+                        <button type="submit" class="btn auth-button w-100">
+                            Create account
+                        </button>
+                    </form>
+
+                    <p class="mt-4 mb-0 text-center text-secondary">
+                        Already have an account?
+                        <a href="{{ route('login') }}" class="auth-link" wire:navigate>Log in</a>
+                    </p>
+                </div>
+            </section>
         </div>
-
-        <!-- Email Address -->
-        <div class="grid gap-2">
-            <flux:input wire:model="email" id="email" label="{{ __('Email address') }}" type="email" name="email" required autocomplete="email" placeholder="email@example.com" />
-        </div>
-
-        <!-- Password -->
-        <div class="grid gap-2">
-            <flux:input
-                wire:model="password"
-                id="password"
-                label="{{ __('Password') }}"
-                type="password"
-                name="password"
-                required
-                autocomplete="new-password"
-                placeholder="Password"
-            />
-        </div>
-
-        <!-- Confirm Password -->
-        <div class="grid gap-2">
-            <flux:input
-                wire:model="password_confirmation"
-                id="password_confirmation"
-                label="{{ __('Confirm password') }}"
-                type="password"
-                name="password_confirmation"
-                required
-                autocomplete="new-password"
-                placeholder="Confirm password"
-            />
-        </div>
-
-        <div class="flex items-center justify-end">
-            <flux:button type="submit" variant="primary" class="w-full">
-                {{ __('Create account') }}
-            </flux:button>
-        </div>
-    </form>
-
-    <div class="space-x-1 text-center text-sm text-zinc-600 dark:text-zinc-400">
-        Already have an account?
-        <x-text-link href="{{ route('login') }}">Log in</x-text-link>
     </div>
-</div>
+</main>

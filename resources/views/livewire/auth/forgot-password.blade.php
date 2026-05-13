@@ -22,23 +22,42 @@ new #[Layout('components.layouts.auth')] class extends Component {
     }
 }; ?>
 
-<div class="flex flex-col gap-6">
-    <x-auth-header title="Forgot password" description="Enter your email to receive a password reset link" />
+<main class="auth-page">
+    <div class="container">
+        <div class="row auth-shell justify-content-center">
+            <section class="col-lg-5">
+                <div class="auth-card mx-auto">
+                    <a href="{{ route('home') }}" class="auth-brand mb-4" wire:navigate>
+                        <span class="brand-mark"><i class="fa-solid fa-utensils"></i></span>
+                        {{ config('app.name', 'Micaller') }}
+                    </a>
 
-    <!-- Session Status -->
-    <x-auth-session-status class="text-center" :status="session('status')" />
+                    <div class="auth-card-header">
+                        <span class="auth-kicker">Password help</span>
+                        <h1 class="auth-card-title">Reset your password</h1>
+                        <p class="auth-card-text">Enter your email address and we will send a reset link if the account exists.</p>
+                    </div>
 
-    <form wire:submit="sendPasswordResetLink" class="flex flex-col gap-6">
-        <!-- Email Address -->
-        <div class="grid gap-2">
-            <flux:input wire:model="email" label="{{ __('Email Address') }}" type="email" name="email" required autofocus placeholder="email@example.com" />
+                    <x-auth-session-status class="auth-alert mb-3" :status="session('status')" />
+
+                    <form wire:submit="sendPasswordResetLink">
+                        <div class="mb-4">
+                            <label for="email" class="form-label">Email address</label>
+                            <input wire:model="email" id="email" name="email" type="email" class="form-control @error('email') is-invalid @enderror" placeholder="you@example.com" required autofocus>
+                            @error('email') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                        </div>
+
+                        <button type="submit" class="btn auth-button w-100">
+                            Send reset link
+                        </button>
+                    </form>
+
+                    <p class="mt-4 mb-0 text-center text-secondary">
+                        Remember your password?
+                        <a href="{{ route('login') }}" class="auth-link" wire:navigate>Log in</a>
+                    </p>
+                </div>
+            </section>
         </div>
-
-        <flux:button variant="primary" type="submit" class="w-full">{{ __('Email password reset link') }}</flux:button>
-    </form>
-
-    <div class="space-x-1 text-center text-sm text-zinc-400">
-        Or, return to
-        <x-text-link href="{{ route('login') }}">log in</x-text-link>
     </div>
-</div>
+</main>

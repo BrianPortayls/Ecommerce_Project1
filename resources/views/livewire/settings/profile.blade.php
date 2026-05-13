@@ -4,9 +4,10 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\Rule;
+use Livewire\Attributes\Layout;
 use Livewire\Volt\Component;
 
-new class extends Component {
+new #[Layout('components.layouts.settings')] class extends Component {
     public string $name = '';
     public string $email = '';
 
@@ -58,7 +59,7 @@ new class extends Component {
         $user = Auth::user();
 
         if ($user->hasVerifiedEmail()) {
-            $this->redirectIntended(default: route('dashboard', absolute: false));
+            $this->redirectIntended(default: route($this->dashboardRoute(), absolute: false));
 
             return;
         }
@@ -66,6 +67,15 @@ new class extends Component {
         $user->sendEmailVerificationNotification();
 
         Session::flash('status', 'verification-link-sent');
+    }
+
+    protected function dashboardRoute(): string
+    {
+        return match (Auth::user()->role) {
+            'admin' => 'admin.dashboard',
+            'manager' => 'manager.dashboard',
+            default => 'dashboard',
+        };
     }
 }; ?>
 

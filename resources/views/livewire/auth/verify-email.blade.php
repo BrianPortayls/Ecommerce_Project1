@@ -13,7 +13,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
     public function sendVerification(): void
     {
         if (Auth::user()->hasVerifiedEmail()) {
-            $this->redirectIntended(default: route('dashboard', absolute: false), navigate: true);
+            $this->redirectIntended(default: route($this->dashboardRoute(), absolute: false), navigate: true);
 
             return;
         }
@@ -32,30 +32,50 @@ new #[Layout('components.layouts.auth')] class extends Component {
 
         $this->redirect('/', navigate: true);
     }
+
+    protected function dashboardRoute(): string
+    {
+        return match (Auth::user()->role) {
+            'admin' => 'admin.dashboard',
+            'manager' => 'manager.dashboard',
+            default => 'dashboard',
+        };
+    }
 }; ?>
 
-<div class="mt-4 flex flex-col gap-6">
-    <div class="text-center text-sm text-gray-600">
-        {{ __('Please verify your email address by clicking on the link we just emailed to you.') }}
-    </div>
+<main class="auth-page">
+    <div class="container">
+        <div class="row auth-shell justify-content-center">
+            <section class="col-lg-5">
+                <div class="auth-card mx-auto text-center">
+                    <a href="{{ route('home') }}" class="auth-brand justify-content-center mb-4" wire:navigate>
+                        <span class="brand-mark"><i class="fa-solid fa-utensils"></i></span>
+                        {{ config('app.name', 'Micaller') }}
+                    </a>
 
-    @if (session('status') == 'verification-link-sent')
-        <div class="font-medium text-center text-sm text-green-600">
-            {{ __('A new verification link has been sent to the email address you provided during registration.') }}
+                    <div class="auth-card-header">
+                        <span class="auth-kicker justify-content-center">Email verification</span>
+                        <h1 class="auth-card-title">Check your inbox</h1>
+                        <p class="auth-card-text">{{ __('Please verify your email address by clicking on the link we just emailed to you.') }}</p>
+                    </div>
+
+                    @if (session('status') == 'verification-link-sent')
+                        <div class="auth-alert mb-3">
+                            {{ __('A new verification link has been sent to the email address you provided during registration.') }}
+                        </div>
+                    @endif
+
+                    <div class="d-grid gap-3">
+                        <button wire:click="sendVerification" type="button" class="btn auth-button">
+                            Resend verification email
+                        </button>
+
+                        <button wire:click="logout" type="button" class="btn btn-link auth-link">
+                            Log out
+                        </button>
+                    </div>
+                </div>
+            </section>
         </div>
-    @endif
-
-    <div class="flex flex-col items-center justify-between space-y-3">
-        <flux:button wire:click="sendVerification" variant="primary" class="w-full">
-            {{ __('Resend verification email') }}
-        </flux:button>
-
-        <button
-            wire:click="logout"
-            type="submit"
-            class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-hidden focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-        >
-            {{ __('Log out') }}
-        </button>
     </div>
-</div>
+</main>

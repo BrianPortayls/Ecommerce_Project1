@@ -6,7 +6,18 @@ use Livewire\Volt\Volt;
 test('profile page is displayed', function () {
     $this->actingAs($user = User::factory()->create());
 
-    $this->get('/settings/profile')->assertOk();
+    $this->get('/settings/profile')
+        ->assertOk()
+        ->assertSee(route('dashboard', absolute: false))
+        ->assertDontSee(route('admin.dashboard', absolute: false));
+});
+
+test('admin profile page shows admin navigation', function () {
+    $this->actingAs($user = User::factory()->admin()->create());
+
+    $this->get('/settings/profile')
+        ->assertOk()
+        ->assertSee(route('admin.dashboard', absolute: false));
 });
 
 test('profile information can be updated', function () {

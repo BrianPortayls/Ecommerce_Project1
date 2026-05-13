@@ -21,8 +21,13 @@ class User extends Authenticatable // implements MustVerifyEmail
     protected $fillable = [
         'name',
         'email',
+        'role',
         'password',
     ];
+
+    public const ROLE_CUSTOMER = 'customer';
+    public const ROLE_MANAGER = 'manager';
+    public const ROLE_ADMIN = 'admin';
 
     /**
      * The attributes that should be hidden for serialization.
@@ -56,5 +61,20 @@ class User extends Authenticatable // implements MustVerifyEmail
             ->explode(' ')
             ->map(fn (string $name) => Str::of($name)->substr(0, 1))
             ->implode('');
+    }
+
+    public function isCustomer(): bool
+    {
+        return $this->role === self::ROLE_CUSTOMER;
+    }
+
+    public function isManager(): bool
+    {
+        return $this->role === self::ROLE_MANAGER;
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->role === self::ROLE_ADMIN;
     }
 }

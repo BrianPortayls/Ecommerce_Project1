@@ -28,34 +28,50 @@ new #[Layout('components.layouts.auth')] class extends Component {
 
         session(['auth.password_confirmed_at' => time()]);
 
-        $this->redirectIntended(default: route('dashboard', absolute: false), navigate: true);
+        $this->redirectIntended(default: route($this->dashboardRoute(), absolute: false), navigate: true);
+    }
+
+    protected function dashboardRoute(): string
+    {
+        return match (Auth::user()->role) {
+            'admin' => 'admin.dashboard',
+            'manager' => 'manager.dashboard',
+            default => 'dashboard',
+        };
     }
 }; ?>
 
-<div class="flex flex-col gap-6">
-    <x-auth-header
-        title="Confirm password"
-        description="This is a secure area of the application. Please confirm your password before continuing."
-    />
+<main class="auth-page">
+    <div class="container">
+        <div class="row auth-shell justify-content-center">
+            <section class="col-lg-5">
+                <div class="auth-card mx-auto">
+                    <a href="{{ route('home') }}" class="auth-brand mb-4" wire:navigate>
+                        <span class="brand-mark"><i class="fa-solid fa-utensils"></i></span>
+                        {{ config('app.name', 'Micaller') }}
+                    </a>
 
-    <!-- Session Status -->
-    <x-auth-session-status class="text-center" :status="session('status')" />
+                    <div class="auth-card-header">
+                        <span class="auth-kicker">Secure area</span>
+                        <h1 class="auth-card-title">Confirm password</h1>
+                        <p class="auth-card-text">Please enter your password again before continuing.</p>
+                    </div>
 
-    <form wire:submit="confirmPassword" class="flex flex-col gap-6">
-        <!-- Password -->
-        <div class="grid gap-2">
-            <flux:input
-                wire:model="password"
-                id="password"
-                label="{{ __('Password') }}"
-                type="password"
-                name="password"
-                required
-                autocomplete="new-password"
-                placeholder="Password"
-            />
+                    <x-auth-session-status class="auth-alert mb-3" :status="session('status')" />
+
+                    <form wire:submit="confirmPassword">
+                        <div class="mb-4">
+                            <label for="password" class="form-label">Password</label>
+                            <input wire:model="password" id="password" name="password" type="password" class="form-control @error('password') is-invalid @enderror" placeholder="Password" required autocomplete="current-password">
+                            @error('password') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                        </div>
+
+                        <button type="submit" class="btn auth-button w-100">
+                            Confirm and continue
+                        </button>
+                    </form>
+                </div>
+            </section>
         </div>
-
-        <flux:button variant="primary" type="submit" class="w-full">{{ __('Confirm') }}</flux:button>
-    </form>
-</div>
+    </div>
+</main>

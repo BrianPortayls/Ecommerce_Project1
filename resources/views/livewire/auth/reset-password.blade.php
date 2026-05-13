@@ -68,50 +68,48 @@ new #[Layout('components.layouts.auth')] class extends Component {
     }
 }; ?>
 
-<div class="flex flex-col gap-6">
-    <x-auth-header title="Reset password" description="Please enter your new password below" />
+<main class="auth-page">
+    <div class="container">
+        <div class="row auth-shell justify-content-center">
+            <section class="col-lg-5">
+                <div class="auth-card mx-auto">
+                    <a href="{{ route('home') }}" class="auth-brand mb-4" wire:navigate>
+                        <span class="brand-mark"><i class="fa-solid fa-utensils"></i></span>
+                        {{ config('app.name', 'Micaller') }}
+                    </a>
 
-    <!-- Session Status -->
-    <x-auth-session-status class="text-center" :status="session('status')" />
+                    <div class="auth-card-header">
+                        <span class="auth-kicker">Password help</span>
+                        <h1 class="auth-card-title">Choose a new password</h1>
+                        <p class="auth-card-text">Use a secure password so your account stays protected.</p>
+                    </div>
 
-    <form wire:submit="resetPassword" class="flex flex-col gap-6">
-        <!-- Email Address -->
-        <div class="grid gap-2">
-            <flux:input wire:model="email" id="email" label="{{ __('Email') }}" type="email" name="email" required autocomplete="email" />
+                    <x-auth-session-status class="auth-alert mb-3" :status="session('status')" />
+
+                    <form wire:submit="resetPassword">
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email address</label>
+                            <input wire:model="email" id="email" name="email" type="email" class="form-control @error('email') is-invalid @enderror" required autocomplete="email">
+                            @error('email') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input wire:model="password" id="password" name="password" type="password" class="form-control @error('password') is-invalid @enderror" placeholder="Password" required autocomplete="new-password">
+                            @error('password') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="password_confirmation" class="form-label">Confirm password</label>
+                            <input wire:model="password_confirmation" id="password_confirmation" name="password_confirmation" type="password" class="form-control" placeholder="Confirm password" required autocomplete="new-password">
+                        </div>
+
+                        <button type="submit" class="btn auth-button w-100">
+                            Reset password
+                        </button>
+                    </form>
+                </div>
+            </section>
         </div>
-
-        <!-- Password -->
-        <div class="grid gap-2">
-            <flux:input
-                wire:model="password"
-                id="password"
-                label="{{ __('Password') }}"
-                type="password"
-                name="password"
-                required
-                autocomplete="new-password"
-                placeholder="Password"
-            />
-        </div>
-
-        <!-- Confirm Password -->
-        <div class="grid gap-2">
-            <flux:input
-                wire:model="password_confirmation"
-                id="password_confirmation"
-                label="{{ __('Confirm password') }}"
-                type="password"
-                name="password_confirmation"
-                required
-                autocomplete="new-password"
-                placeholder="Confirm password"
-            />
-        </div>
-
-        <div class="flex items-center justify-end">
-            <flux:button type="submit" variant="primary" class="w-full">
-                {{ __('Reset password') }}
-            </flux:button>
-        </div>
-    </form>
-</div>
+    </div>
+</main>

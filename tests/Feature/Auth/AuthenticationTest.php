@@ -24,6 +24,32 @@ test('users can authenticate using the login screen', function () {
     $this->assertAuthenticated();
 });
 
+test('admins are sent to the admin dashboard after login', function () {
+    $user = User::factory()->admin()->create();
+
+    $response = LivewireVolt::test('auth.login')
+        ->set('email', $user->email)
+        ->set('password', 'password')
+        ->call('login');
+
+    $response
+        ->assertHasNoErrors()
+        ->assertRedirect(route('admin.dashboard', absolute: false));
+});
+
+test('managers are sent to the manager dashboard after login', function () {
+    $user = User::factory()->manager()->create();
+
+    $response = LivewireVolt::test('auth.login')
+        ->set('email', $user->email)
+        ->set('password', 'password')
+        ->call('login');
+
+    $response
+        ->assertHasNoErrors()
+        ->assertRedirect(route('manager.dashboard', absolute: false));
+});
+
 test('users can not authenticate with invalid password', function () {
     $user = User::factory()->create();
 
