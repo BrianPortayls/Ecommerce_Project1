@@ -1,54 +1,14 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.admin')
 
-        <title>Create Manager - {{ config('app.name', 'Micaller') }}</title>
+@section('title', 'Create Manager')
+@section('kicker', 'Admin database')
+@section('heading', 'Create manager account')
 
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="{{ asset('css/admin/dashboard.css') }}?v={{ filemtime(public_path('css/admin/dashboard.css')) }}">
-    </head>
-    <body>
-        <main class="admin-shell">
-            <aside class="admin-sidebar" aria-label="Admin navigation">
-                <a href="{{ route('home') }}" class="admin-brand">
-                    <span class="brand-mark"><i class="fa-solid fa-utensils"></i></span>
-                    <span>{{ config('app.name', 'Micaller') }}</span>
-                </a>
+@section('actions')
+    <a href="{{ route('admin.dashboard') }}" class="admin-soft-button">Back to dashboard</a>
+@endsection
 
-                <nav class="admin-nav">
-                    <a href="{{ route('admin.dashboard') }}" class="admin-nav-link">
-                        <i class="fa-solid fa-chart-line"></i>
-                        Dashboard
-                    </a>
-                    <a href="{{ route('admin.managers.create') }}" class="admin-nav-link is-active">
-                        <i class="fa-solid fa-user-tie"></i>
-                        Managers
-                    </a>
-                    <a href="{{ route('home') }}" class="admin-nav-link">
-                        <i class="fa-solid fa-store"></i>
-                        Storefront
-                    </a>
-                </nav>
-            </aside>
-
-            <section class="admin-main">
-                <header class="admin-topbar">
-                    <div>
-                        <p class="admin-kicker">Admin database</p>
-                        <h1>Create manager account</h1>
-                    </div>
-
-                    <div class="admin-actions">
-                        <span class="admin-role-pill">Admin</span>
-                        <a href="{{ route('admin.dashboard') }}" class="admin-soft-button">Back to dashboard</a>
-                    </div>
-                </header>
-
+@section('content')
                 <div class="manager-grid">
                     <section class="manager-form-card">
                         @if (session('status'))
@@ -107,7 +67,4 @@
                         </div>
                     </section>
                 </div>
-            </section>
-        </main>
-    </body>
-</html>
+@endsection
