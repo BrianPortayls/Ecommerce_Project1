@@ -1,5 +1,5 @@
 @php
-    $categories = ['All', 'Silog Meals', 'Sizzling', 'Chicken', 'Pancit', 'Drinks'];
+    $defaultCategories = ['All', 'Silog Meals', 'Sizzling', 'Chicken', 'Pancit', 'Drinks'];
 
     $menuCategories = [
         ['name' => 'Silog Meals', 'items' => '12 meals', 'icon' => 'fa-bowl-rice', 'color' => 'mint', 'description' => 'Garlic rice, egg, and classic Filipino breakfast plates.'],
@@ -40,7 +40,7 @@
         ],
     ];
 
-    $menus = [
+    $defaultMenus = [
         [
             'name' => 'Tapsilog',
             'category' => 'Silog Meals',
@@ -268,7 +268,7 @@
                                                 </div>
                                                 <p>{{ $menu['description'] }}</p>
                                                 <div class="menu-card-foot">
-                                                    <strong>{{ $menu['price'] }}</strong>
+                                                    <strong>{!! $menu['price'] !!}</strong>
                                                     <button class="add-btn" type="button" aria-label="Add {{ $menu['name'] }} to order">
                                                         <i class="fa-solid fa-plus"></i>
                                                     </button>
