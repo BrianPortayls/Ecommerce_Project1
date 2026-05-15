@@ -26,11 +26,6 @@
                         Dashboard
                     </a>
 
-                    <a href="{{ route('admin.orders.index') }}" class="admin-nav-link @if (request()->routeIs('admin.orders.*')) is-active @endif">
-                        <i class="fa-solid fa-receipt"></i>
-                        Orders
-                    </a>
-
                     <a href="{{ route('admin.menu-items.index') }}" class="admin-nav-link @if (request()->routeIs('admin.menu-items.*')) is-active @endif">
                         <i class="fa-solid fa-bowl-food"></i>
                         Menu items
@@ -44,11 +39,6 @@
                     <a href="{{ route('admin.managers.create') }}" class="admin-nav-link @if (request()->routeIs('admin.managers.*')) is-active @endif">
                         <i class="fa-solid fa-user-tie"></i>
                         Managers
-                    </a>
-
-                    <a href="{{ route('admin.deliveries.index') }}" class="admin-nav-link @if (request()->routeIs('admin.deliveries.*')) is-active @endif">
-                        <i class="fa-solid fa-motorcycle"></i>
-                        Deliveries
                     </a>
 
                     <a href="{{ route('admin.settings.index') }}" class="admin-nav-link @if (request()->routeIs('admin.settings.*')) is-active @endif">
@@ -98,5 +88,7 @@
                 @yield('content')
             </section>
         </main>
+
+        @stack('scripts')
     </body>
 </html>

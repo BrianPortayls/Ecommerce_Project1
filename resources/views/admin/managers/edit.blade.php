@@ -1,8 +1,8 @@
 @extends('layouts.admin')
 
-@section('title', 'Create Manager')
+@section('title', 'Edit Manager')
 @section('kicker', 'Admin database')
-@section('heading', 'Create manager account')
+@section('heading', 'Edit manager account')
 
 @section('content')
     <div id="toast-container" class="toast-container"></div>
@@ -10,7 +10,7 @@
     @if (session('status'))
         <script>
             document.addEventListener('DOMContentLoaded', function() {
-                showSuccessToast('Manager Created', 'New manager account has been created successfully.');
+                showSuccessToast('Manager Updated', 'Manager account has been updated successfully.');
             });
         </script>
     @endif
@@ -18,40 +18,51 @@
     <div class="manager-grid">
         <section class="manager-form-card">
             <div class="form-header">
-                <h3>New Manager</h3>
-                <p>Create a new manager account for your team</p>
+                <a href="{{ route('admin.managers.create') }}" class="form-back-link">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    Back to managers
+                </a>
+                <h3>Edit Manager</h3>
+                <p>Update manager account details</p>
             </div>
 
-            <form method="POST" action="{{ route('admin.managers.store') }}">
+            <form method="POST" action="{{ route('admin.managers.update', $manager) }}">
                 @csrf
+                @method('PUT')
 
                 <div class="form-group">
                     <label for="name">Manager name</label>
-                    <input id="name" name="name" type="text" value="{{ old('name') }}" placeholder="John Doe" required autofocus>
+                    <input id="name" name="name" type="text" value="{{ old('name', $manager->name) }}" placeholder="John Doe" required autofocus>
                     @error('name') <p class="form-error">{{ $message }}</p> @enderror
                 </div>
 
                 <div class="form-group">
                     <label for="email">Email address</label>
-                    <input id="email" name="email" type="email" value="{{ old('email') }}" placeholder="john@example.com" required>
+                    <input id="email" name="email" type="email" value="{{ old('email', $manager->email) }}" placeholder="john@example.com" required>
                     @error('email') <p class="form-error">{{ $message }}</p> @enderror
                 </div>
 
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input id="password" name="password" type="password" placeholder="••••••••" required>
+                    <input id="password" name="password" type="password" placeholder="Leave blank to keep current password">
+                    <small style="color: #6b7280; margin-top: 4px; display: block;">Leave blank to keep the current password</small>
                     @error('password') <p class="form-error">{{ $message }}</p> @enderror
                 </div>
 
                 <div class="form-group">
                     <label for="password_confirmation">Confirm password</label>
-                    <input id="password_confirmation" name="password_confirmation" type="password" placeholder="••••••••" required>
+                    <input id="password_confirmation" name="password_confirmation" type="password" placeholder="••••••••">
                 </div>
 
-                <button type="submit" class="admin-primary-button full-button">
-                    <i class="fa-solid fa-user-plus"></i>
-                    Create manager account
-                </button>
+                <div class="form-actions">
+                    <button type="submit" class="admin-primary-button">
+                        <i class="fa-solid fa-save"></i>
+                        Save changes
+                    </button>
+                    <a href="{{ route('admin.managers.create') }}" class="admin-soft-button">
+                        Cancel
+                    </a>
+                </div>
             </form>
         </section>
 
@@ -65,23 +76,23 @@
             </div>
 
             <div class="manager-list">
-                @forelse ($managers as $manager)
-                    <div class="manager-row">
+                @forelse ($managers as $mgr)
+                    <div class="manager-row {{ $mgr->id === $manager->id ? 'is-editing' : '' }}">
                         <span class="manager-avatar"><i class="fa-solid fa-user-tie"></i></span>
                         <div class="manager-info">
-                            <strong>{{ $manager->name }}</strong>
-                            <small>{{ $manager->email }}</small>
+                            <strong>{{ $mgr->name }}</strong>
+                            <small>{{ $mgr->email }}</small>
                         </div>
                         <div class="manager-actions">
                             <button class="manager-menu-btn" onclick="toggleMenu(this)">
                                 <i class="fa-solid fa-ellipsis-vertical"></i>
                             </button>
                             <div class="manager-menu">
-                                <a href="{{ route('admin.managers.edit', $manager) }}" class="manager-menu-item edit-btn">
+                                <a href="{{ route('admin.managers.edit', $mgr) }}" class="manager-menu-item edit-btn">
                                     <i class="fa-solid fa-pen-to-square"></i>
                                     Edit
                                 </a>
-                                <form method="POST" action="{{ route('admin.managers.destroy', $manager) }}" class="delete-form" onsubmit="return confirm('Are you sure you want to delete this manager?');">
+                                <form method="POST" action="{{ route('admin.managers.destroy', $mgr) }}" class="delete-form" onsubmit="return confirm('Are you sure you want to delete this manager?');">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="manager-menu-item delete-btn">

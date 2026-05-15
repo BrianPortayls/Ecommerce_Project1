@@ -18,6 +18,9 @@ Route::prefix('admin')
         Route::view('/customers', 'admin.customers.index')->name('customers.index');
         Route::get('/managers/create', [ManagerAccountController::class, 'create'])->name('managers.create');
         Route::post('/managers', [ManagerAccountController::class, 'store'])->name('managers.store');
+        Route::get('/managers/{manager}/edit', [ManagerAccountController::class, 'edit'])->name('managers.edit');
+        Route::put('/managers/{manager}', [ManagerAccountController::class, 'update'])->name('managers.update');
+        Route::delete('/managers/{manager}', [ManagerAccountController::class, 'destroy'])->name('managers.destroy');
         Route::view('/deliveries', 'admin.deliveries.index')->name('deliveries.index');
         Route::get('/settings', [SettingsController::class, 'index'])->name('settings.index');
         Route::post('/settings', [SettingsController::class, 'update'])->name('settings.update');

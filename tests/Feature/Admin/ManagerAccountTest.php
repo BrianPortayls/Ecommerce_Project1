@@ -39,3 +39,51 @@ test('admins can create manager accounts', function () {
         'role' => User::ROLE_MANAGER,
     ]);
 });
+
+test('admins can edit manager accounts', function () {
+    $admin = User::factory()->admin()->create();
+    $manager = User::factory()->manager()->create([
+        'name' => 'Original Name',
+        'email' => 'original@example.com',
+    ]);
+
+    $this->actingAs($admin)
+        ->get("/admin/managers/{$manager->id}/edit")
+        ->assertOk()
+        ->assertSee('Edit manager account');
+
+    $this->actingAs($admin)
+        ->put("/admin/managers/{$manager->id}", [
+            'name' => 'Updated Name',
+            'email' => 'updated@example.com',
+            'password' => null,
+            'password_confirmation' => null,
+        ])
+        ->assertSessionHasNoErrors()
+        ->assertRedirect();
+
+    $this->assertDatabaseHas('users', [
+        'id' => $manager->id,
+        'name' => 'Updated Name',
+        'email' => 'updated@example.com',
+    ]);
+});
+
+test('admins can delete manager accounts', function () {
+    $admin = User::factory()->admin()->create();
+    $manager = User::factory()->manager()->create([
+        'name' => 'Manager to Delete',
+        'email' => 'delete@example.com',
+    ]);
+
+    $managerId = $manager->id;
+
+    $this->assertDatabaseHas('users', ['id' => $managerId]);
+
+    $this->actingAs($admin)
+        ->delete("/admin/managers/{$manager->id}")
+        ->assertSessionHasNoErrors()
+        ->assertRedirect();
+
+    $this->assertDatabaseMissing('users', ['id' => $managerId]);
+});
