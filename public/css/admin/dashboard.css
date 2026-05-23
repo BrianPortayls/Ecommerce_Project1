@@ -1354,6 +1354,98 @@ textarea {
     cursor: pointer;
 }
 
+.menu-edit-shell {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 320px;
+    align-items: start;
+    gap: 22px;
+    margin-top: 28px;
+}
+
+.edit-menu-form-wrapper {
+    border: 1px solid rgba(148, 163, 184, 0.16);
+    border-radius: 16px;
+    background: var(--surface);
+    box-shadow: var(--shadow);
+    padding: 24px;
+}
+
+.edit-menu-form-wrapper .panel-header {
+    align-items: flex-start;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--line);
+}
+
+.edit-menu-form-wrapper .menu-item-form {
+    margin-top: 24px;
+}
+
+.edit-form-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.edit-menu-preview {
+    overflow: hidden;
+    border: 1px solid rgba(148, 163, 184, 0.16);
+    border-radius: 16px;
+    background: var(--surface);
+    box-shadow: var(--shadow);
+}
+
+.edit-menu-preview-image {
+    position: relative;
+    display: grid;
+    min-height: 220px;
+    place-items: center;
+    overflow: hidden;
+    background:
+        linear-gradient(135deg, rgba(9, 185, 129, 0.15), rgba(245, 158, 11, 0.18)),
+        var(--surface-deep);
+    color: var(--green);
+    font-size: 36px;
+}
+
+.edit-menu-preview-image img {
+    width: 100%;
+    height: 100%;
+    min-height: 220px;
+    object-fit: cover;
+}
+
+.edit-menu-preview-body {
+    display: grid;
+    gap: 10px;
+    padding: 18px;
+}
+
+.edit-menu-preview-body small {
+    color: var(--amber);
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.edit-menu-preview-body h3 {
+    margin: 0;
+    color: var(--ink);
+    font-size: 24px;
+    line-height: 1.2;
+}
+
+.edit-menu-preview-body p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.edit-menu-preview-body strong {
+    color: var(--green);
+    font-size: 24px;
+}
+
 .menu-item-form {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -1380,6 +1472,112 @@ textarea {
 .menu-toolbar-panel h2 {
     margin: 6px 0 0;
     font-size: 24px;
+}
+
+.menu-filter-panel {
+    border: 1px solid rgba(148, 163, 184, 0.16);
+    border-radius: 12px;
+    background: var(--surface);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.menu-filter-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr auto;
+    gap: 16px;
+    align-items: flex-end;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.filter-group label {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+}
+
+.filter-group select,
+.search-input-wrapper input {
+    padding: 10px 12px;
+    border: 1px solid rgba(148, 163, 184, 0.16);
+    border-radius: 6px;
+    background: white;
+    color: var(--text);
+    font-size: 13px;
+    transition: all 0.2s ease;
+}
+
+.filter-group select:focus,
+.search-input-wrapper input:focus {
+    outline: none;
+    border-color: var(--green);
+    box-shadow: 0 0 0 3px rgba(9, 185, 129, 0.1);
+}
+
+.search-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-input-wrapper i {
+    position: absolute;
+    left: 12px;
+    color: var(--muted);
+    font-size: 13px;
+    pointer-events: none;
+}
+
+.search-input-wrapper input {
+    width: 100%;
+    padding-left: 36px;
+}
+
+.filter-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.filter-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 10px 14px;
+    border: none;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.filter-button.apply {
+    background: var(--green);
+    color: white;
+}
+
+.filter-button.apply:hover {
+    background: var(--green-dark);
+    transform: translateY(-1px);
+}
+
+.filter-button.reset {
+    background: var(--surface-deep);
+    color: var(--text);
+    border: 1px solid rgba(148, 163, 184, 0.16);
+}
+
+.filter-button.reset:hover {
+    background: rgba(0, 0, 0, 0.04);
+    border-color: rgba(148, 163, 184, 0.3);
 }
 
 .admin-menu-grid {
@@ -1444,6 +1642,70 @@ textarea {
 .admin-menu-body strong {
     color: var(--green);
     font-size: 22px;
+}
+
+.admin-menu-actions {
+    display: flex;
+    gap: 8px;
+    padding: 12px 18px;
+    border-top: 1px solid var(--line);
+    background: var(--surface-deep);
+}
+
+.admin-menu-action-button {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    min-height: 38px;
+    padding: 8px 12px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: white;
+    color: var(--ink);
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.admin-menu-action-button:hover {
+    border-color: rgba(23, 33, 28, 0.18);
+    background: var(--surface-deep);
+    transform: translateY(-1px);
+}
+
+.admin-menu-action-button.edit-button {
+    color: var(--green);
+    border-color: var(--green);
+}
+
+.admin-menu-action-button.edit-button:hover {
+    background: rgba(9, 185, 129, 0.08);
+}
+
+.admin-menu-action-button.delete-button {
+    color: var(--rose);
+    border-color: var(--rose);
+}
+
+.admin-menu-action-button.delete-button:hover {
+    background: rgba(239, 68, 68, 0.08);
+}
+
+.admin-menu-actions .delete-form {
+    flex: 1;
+    display: flex;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.admin-menu-actions .delete-form button {
+    width: 100%;
+    margin: 0;
 }
 
 .menu-empty-state {
@@ -1839,7 +2101,7 @@ textarea {
 }
 
 .manager-menu-item,
-.delete-form button {
+.manager-menu .delete-form button {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -1855,17 +2117,17 @@ textarea {
 }
 
 .manager-menu-item:first-child,
-.delete-form button:first-child {
+.manager-menu .delete-form button:first-child {
     border-radius: 8px 8px 0 0;
 }
 
 .manager-menu-item:last-child,
-.delete-form button:last-child {
+.manager-menu .delete-form button:last-child {
     border-radius: 0 0 8px 8px;
 }
 
 .manager-menu-item:hover,
-.delete-form button:hover {
+.manager-menu .delete-form button:hover {
     background: var(--surface-deep);
 }
 
@@ -1894,7 +2156,7 @@ textarea {
     border: none;
 }
 
-.delete-form button {
+.manager-menu .delete-form button {
     margin: 0;
     padding: 10px 14px;
 }
@@ -1953,8 +2215,16 @@ textarea {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
+    .menu-edit-shell {
+        grid-template-columns: 1fr;
+    }
+
     .menu-item-form {
         grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .menu-filter-form {
+        grid-template-columns: 1fr 1fr;
     }
 
     .manager-grid {
@@ -2013,6 +2283,22 @@ textarea {
         grid-template-columns: 1fr;
     }
 
+    .menu-edit-shell {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .edit-menu-form-wrapper,
+    .edit-menu-preview-body {
+        padding: 18px;
+    }
+
+    .edit-form-actions,
+    .edit-form-actions .admin-primary-button,
+    .edit-form-actions .admin-soft-button {
+        width: 100%;
+    }
+
     .menu-toolbar-panel {
         align-items: stretch;
         flex-direction: column;
@@ -2020,5 +2306,17 @@ textarea {
 
     .admin-search {
         width: 100%;
+    }
+
+    .menu-filter-form {
+        grid-template-columns: 1fr;
+    }
+
+    .filter-actions {
+        width: 100%;
+    }
+
+    .filter-button {
+        flex: 1;
     }
 }

@@ -116,10 +116,50 @@
             <p class="admin-kicker">Food business menu</p>
             <h2>All menu items</h2>
         </div>
-        <label class="admin-search">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="search" placeholder="Search meals">
-        </label>
+    </div>
+
+    <div class="menu-filter-panel">
+        <form method="GET" action="{{ route('admin.menu-items.index') }}" class="menu-filter-form">
+            <div class="filter-group">
+                <label for="search">Search meals</label>
+                <div class="search-input-wrapper">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="search" id="search" name="search" placeholder="Search by name or description" value="{{ request('search') }}">
+                </div>
+            </div>
+
+            <div class="filter-group">
+                <label for="category">Category</label>
+                <select id="category" name="category">
+                    <option value="">All categories</option>
+                    @foreach ($categories as $cat)
+                        <option value="{{ $cat }}" @selected(request('category') === $cat)>{{ $cat }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label for="availability">Availability</label>
+                <select id="availability" name="availability">
+                    <option value="">All items</option>
+                    <option value="1" @selected(request('availability') === '1')>Available only</option>
+                    <option value="0" @selected(request('availability') === '0')>Unavailable only</option>
+                </select>
+            </div>
+
+            <div class="filter-actions">
+                <button type="submit" class="filter-button apply">
+                    <i class="fa-solid fa-sliders"></i>
+                    Apply filters
+                </button>
+                @if (request()->hasAny(['search', 'category', 'availability']))
+                    <a href="{{ route('admin.menu-items.index') }}" class="filter-button reset">
+                        <i class="fa-solid fa-xmark"></i>
+                        Reset filters
+                    </a>
+                @endif
+            </div>
+        </form>
     </div>
 
     <div class="admin-menu-grid">
@@ -140,6 +180,20 @@
                     <h3>{{ $menuItem->name }}</h3>
                     <p>{{ $menuItem->description ?: 'No description yet.' }}</p>
                     <strong>&#8369;{{ number_format((float) $menuItem->price, 2) }}</strong>
+                </div>
+                <div class="admin-menu-actions">
+                    <a href="{{ route('admin.menu-items.edit', $menuItem) }}" class="admin-menu-action-button edit-button" title="Edit menu item">
+                        <i class="fa-solid fa-pencil"></i>
+                        Edit
+                    </a>
+                    <form method="POST" action="{{ route('admin.menu-items.destroy', $menuItem) }}" class="delete-form" onsubmit="return confirm('Are you sure you want to delete this menu item?');">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="admin-menu-action-button delete-button" title="Delete menu item">
+                            <i class="fa-solid fa-trash"></i>
+                            Delete
+                        </button>
+                    </form>
                 </div>
             </article>
         @empty

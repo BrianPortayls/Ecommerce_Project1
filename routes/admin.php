@@ -15,6 +15,9 @@ Route::prefix('admin')
         Route::get('/menu-items', [MenuItemController::class, 'index'])->name('menu-items.index');
         Route::post('/menu-items', [MenuItemController::class, 'store'])->name('menu-items.store');
         Route::redirect('/menu-items/create', '/admin/menu-items')->name('menu-items.create');
+        Route::get('/menu-items/{menuItem}/edit', [MenuItemController::class, 'edit'])->name('menu-items.edit');
+        Route::put('/menu-items/{menuItem}', [MenuItemController::class, 'update'])->name('menu-items.update');
+        Route::delete('/menu-items/{menuItem}', [MenuItemController::class, 'destroy'])->name('menu-items.destroy');
         Route::view('/customers', 'admin.customers.index')->name('customers.index');
         Route::get('/managers/create', [ManagerAccountController::class, 'create'])->name('managers.create');
         Route::post('/managers', [ManagerAccountController::class, 'store'])->name('managers.store');
