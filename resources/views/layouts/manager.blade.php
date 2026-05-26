@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>@yield('title', 'Admin') - {{ config('app.name', 'Micaller') }}</title>
+        <title>@yield('title', 'Manager') - {{ config('app.name', 'Micaller') }}</title>
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,41 +14,21 @@
     </head>
     <body>
         <main class="admin-shell">
-            <aside class="admin-sidebar" aria-label="Admin navigation">
+            <aside class="admin-sidebar" aria-label="Manager navigation">
                 <a href="{{ route('home') }}" class="admin-brand">
                     <span class="brand-mark"><i class="fa-solid fa-utensils"></i></span>
                     <span>{{ config('app.name', 'Micaller') }}</span>
                 </a>
 
                 <nav class="admin-nav">
-                    <a href="{{ route('admin.dashboard') }}" class="admin-nav-link @if (request()->routeIs('admin.dashboard')) is-active @endif">
+                    <a href="{{ route('manager.dashboard') }}" class="admin-nav-link @if (request()->routeIs('manager.dashboard')) is-active @endif">
                         <i class="fa-solid fa-chart-line"></i>
                         Dashboard
                     </a>
 
-                    <a href="{{ route('admin.menu-items.index') }}" class="admin-nav-link @if (request()->routeIs('admin.menu-items.*')) is-active @endif">
+                    <a href="{{ route('manager.menu-items.index') }}" class="admin-nav-link @if (request()->routeIs('manager.menu-items.*')) is-active @endif">
                         <i class="fa-solid fa-bowl-food"></i>
                         Menu items
-                    </a>
-
-                    <a href="{{ route('admin.customers.index') }}" class="admin-nav-link @if (request()->routeIs('admin.customers.*')) is-active @endif">
-                        <i class="fa-solid fa-users"></i>
-                        Customers
-                    </a>
-
-                    <a href="{{ route('admin.managers.create') }}" class="admin-nav-link @if (request()->routeIs('admin.managers.*')) is-active @endif">
-                        <i class="fa-solid fa-user-tie"></i>
-                        Managers
-                    </a>
-
-                    <a href="{{ route('admin.settings.index') }}" class="admin-nav-link @if (request()->routeIs('admin.settings.*')) is-active @endif">
-                        <i class="fa-solid fa-gear"></i>
-                        Settings
-                    </a>
-
-                    <a href="{{ route('admin.analytics.index') }}" class="admin-nav-link @if (request()->routeIs('admin.analytics.*')) is-active @endif">
-                        <i class="fa-solid fa-chart-column"></i>
-                        Analytics
                     </a>
 
                     <a href="{{ route('home') }}" class="admin-nav-link">
@@ -75,13 +55,13 @@
             <section class="admin-main">
                 <header class="admin-topbar">
                     <div>
-                        <p class="admin-kicker">@yield('kicker', 'Admin')</p>
+                        <p class="admin-kicker">@yield('kicker', 'Manager')</p>
                         <h1>{!! $__env->yieldContent('heading', 'Dashboard') !!}</h1>
                     </div>
 
                     <div class="admin-actions">
                         @yield('actions')
-                        <span class="admin-role-pill">Admin</span>
+                        <span class="admin-role-pill">Manager {{ Str::ucfirst(auth()->user()->name) }}</span>
                     </div>
                 </header>
 
@@ -89,7 +69,6 @@
             </section>
         </main>
 
-        @vite('resources/js/app.js')
         @stack('scripts')
     </body>
 </html>
