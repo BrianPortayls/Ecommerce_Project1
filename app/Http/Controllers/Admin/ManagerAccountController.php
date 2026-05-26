@@ -18,7 +18,7 @@ class ManagerAccountController extends Controller
             'managers' => User::query()
                 ->where('role', User::ROLE_MANAGER)
                 ->latest()
-                ->get(),
+                ->paginate(10),
         ]);
     }
 
@@ -49,7 +49,7 @@ class ManagerAccountController extends Controller
             'managers' => User::query()
                 ->where('role', User::ROLE_MANAGER)
                 ->latest()
-                ->get(),
+                ->paginate(10),
         ]);
     }
 

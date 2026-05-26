@@ -61,7 +61,7 @@
                     <p class="admin-kicker">Current managers</p>
                     <h2>Manager accounts</h2>
                 </div>
-                <span class="manager-count">{{ count($managers) }}</span>
+                <span class="manager-count">{{ $managers->total() }}</span>
             </div>
 
             <div class="manager-list">
@@ -98,6 +98,10 @@
                         <p>No manager accounts have been created yet.</p>
                     </div>
                 @endforelse
+            </div>
+
+            <div class="admin-pagination">
+                {{ $managers->links() }}
             </div>
         </section>
     </div>

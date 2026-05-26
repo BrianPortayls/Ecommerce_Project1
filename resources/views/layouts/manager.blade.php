@@ -13,6 +13,11 @@
         <link rel="stylesheet" href="{{ asset('css/admin/dashboard.css') }}?v={{ filemtime(public_path('css/admin/dashboard.css')) }}">
     </head>
     <body>
+        <button type="button" class="admin-mobile-toggle" data-admin-nav-toggle aria-label="Open manager navigation">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+        <div class="admin-sidebar-backdrop" data-admin-nav-close></div>
+
         <main class="admin-shell">
             <aside class="admin-sidebar" aria-label="Manager navigation">
                 <a href="{{ route('home') }}" class="admin-brand">
@@ -69,6 +74,7 @@
             </section>
         </main>
 
+        @vite('resources/js/app.js')
         @stack('scripts')
     </body>
 </html>

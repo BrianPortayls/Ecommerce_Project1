@@ -63,6 +63,31 @@ test('admins can view analytics charts with dynamic store data', function () {
         ],
     ]);
 
+    DB::table('order_items')->insert([
+        [
+            'order_id' => $firstOrderId,
+            'menu_item_id' => 1,
+            'name' => 'Tapsilog Express',
+            'category' => 'Silog Meals',
+            'quantity' => 2,
+            'unit_price' => 125,
+            'line_total' => 250,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ],
+        [
+            'order_id' => $secondOrderId,
+            'menu_item_id' => 2,
+            'name' => 'Chicken Rice Bowl',
+            'category' => 'Chicken',
+            'quantity' => 1,
+            'unit_price' => 145,
+            'line_total' => 145,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ],
+    ]);
+
     $this->actingAs($admin)
         ->get(route('admin.analytics.index', absolute: false))
         ->assertOk()

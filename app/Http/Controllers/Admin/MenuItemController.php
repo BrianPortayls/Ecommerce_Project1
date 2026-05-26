@@ -18,8 +18,10 @@ class MenuItemController extends Controller
         // Search filter
         if (request('search')) {
             $search = request('search');
-            $query->where('name', 'like', "%{$search}%")
-                ->orWhere('description', 'like', "%{$search}%");
+            $query->where(function ($query) use ($search): void {
+                $query->where('name', 'like', "%{$search}%")
+                    ->orWhere('description', 'like', "%{$search}%");
+            });
         }
 
         // Category filter
@@ -32,9 +34,12 @@ class MenuItemController extends Controller
             $query->where('is_available', request('availability'));
         }
 
+        $summaryQuery = clone $query;
+
         $menuItems = $query->orderBy('sort_order')
             ->orderBy('name')
-            ->get();
+            ->paginate(12)
+            ->withQueryString();
 
         $categories = MenuItem::query()
             ->select('category')
@@ -45,6 +50,8 @@ class MenuItemController extends Controller
         return view('admin.menu-items.index', [
             'menuItems' => $menuItems,
             'categories' => $categories,
+            'menuItemCount' => (clone $summaryQuery)->count(),
+            'availableMenuItemCount' => (clone $summaryQuery)->where('is_available', true)->count(),
         ]);
     }
 
