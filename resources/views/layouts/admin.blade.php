@@ -13,6 +13,11 @@
         <link rel="stylesheet" href="{{ asset('css/admin/dashboard.css') }}?v={{ filemtime(public_path('css/admin/dashboard.css')) }}">
     </head>
     <body>
+        <button type="button" class="admin-mobile-toggle" data-admin-nav-toggle aria-label="Open admin navigation">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+        <div class="admin-sidebar-backdrop" data-admin-nav-close></div>
+
         <main class="admin-shell">
             <aside class="admin-sidebar" aria-label="Admin navigation">
                 <a href="{{ route('home') }}" class="admin-brand">
@@ -39,6 +44,11 @@
                     <a href="{{ route('admin.managers.create') }}" class="admin-nav-link @if (request()->routeIs('admin.managers.*')) is-active @endif">
                         <i class="fa-solid fa-user-tie"></i>
                         Managers
+                    </a>
+
+                    <a href="{{ route('admin.deliveries.index') }}" class="admin-nav-link @if (request()->routeIs('admin.deliveries.*')) is-active @endif">
+                        <i class="fa-solid fa-motorcycle"></i>
+                        Deliveries
                     </a>
 
                     <a href="{{ route('admin.settings.index') }}" class="admin-nav-link @if (request()->routeIs('admin.settings.*')) is-active @endif">

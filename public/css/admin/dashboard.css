@@ -1731,6 +1731,52 @@ textarea {
     grid-column: 1 / -1;
 }
 
+.admin-mobile-toggle,
+.admin-sidebar-backdrop {
+    display: none;
+}
+
+.inline-update-form {
+    display: grid;
+    gap: 8px;
+}
+
+.inline-update-form input,
+.inline-update-form select {
+    width: 100%;
+    min-height: 38px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: var(--surface-deep);
+    color: var(--ink);
+    padding: 8px 10px;
+    font-size: 13px;
+}
+
+.orders-table small {
+    color: var(--muted);
+    font-weight: 600;
+}
+
+.admin-pagination {
+    margin-top: 18px;
+}
+
+.admin-pagination nav > div:first-child {
+    display: none;
+}
+
+.admin-pagination nav > div:last-child {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.admin-pagination a,
+.admin-pagination span {
+    border-radius: 6px !important;
+}
+
 /* Toast Notification Styles */
 .toast-container {
     position: fixed;
@@ -2257,10 +2303,47 @@ textarea {
     }
 
     .admin-sidebar {
-        position: static;
-        height: auto;
-        min-height: auto;
-        overflow: visible;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 50;
+        width: min(82vw, 300px);
+        height: 100vh;
+        overflow-y: auto;
+        transform: translateX(-105%);
+        transition: transform 180ms ease;
+    }
+
+    .admin-nav-open .admin-sidebar {
+        transform: translateX(0);
+    }
+
+    .admin-mobile-toggle {
+        position: fixed;
+        right: 16px;
+        bottom: 16px;
+        z-index: 45;
+        display: grid;
+        width: 52px;
+        height: 52px;
+        place-items: center;
+        border: 0;
+        border-radius: 50%;
+        background: var(--green);
+        color: #fff;
+        box-shadow: var(--shadow);
+    }
+
+    .admin-sidebar-backdrop {
+        position: fixed;
+        inset: 0;
+        z-index: 40;
+        display: none;
+        background: rgba(15, 23, 42, 0.44);
+    }
+
+    .admin-nav-open .admin-sidebar-backdrop {
+        display: block;
     }
 
     .admin-main {
@@ -2337,5 +2420,9 @@ textarea {
 
     .filter-button {
         flex: 1;
+    }
+
+    .orders-table {
+        min-width: 760px;
     }
 }

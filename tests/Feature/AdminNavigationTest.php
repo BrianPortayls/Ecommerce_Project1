@@ -19,9 +19,9 @@ test('admin sidebar links route to admin sections', function () {
         ->assertSee('View store');
 
     collect([
-        'admin.orders.index' => 'Orders workspace',
+        'admin.orders.index' => 'Order management',
         'admin.menu-items.index' => 'All menu items',
-        'admin.customers.index' => 'Customers workspace',
+        'admin.customers.index' => 'Customer management',
         'admin.deliveries.index' => 'Deliveries workspace',
     ])->each(function (string $expectedText, string $routeName) use ($admin) {
         $this->actingAs($admin)

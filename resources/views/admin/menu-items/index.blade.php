@@ -21,7 +21,7 @@
         <article>
             <span><i class="fa-solid fa-bowl-food"></i></span>
             <div>
-                <strong>{{ $menuItems->count() }}</strong>
+                <strong>{{ $menuItemCount }}</strong>
                 <p>Total menu items</p>
             </div>
         </article>
@@ -35,7 +35,7 @@
         <article>
             <span><i class="fa-solid fa-circle-check"></i></span>
             <div>
-                <strong>{{ $menuItems->where('is_available', true)->count() }}</strong>
+                <strong>{{ $availableMenuItemCount }}</strong>
                 <p>Available today</p>
             </div>
         </article>
@@ -203,6 +203,10 @@
                 <p>Add your first meal from this page and it will appear in the catalog.</p>
             </section>
         @endforelse
+    </div>
+
+    <div class="admin-pagination">
+        {{ $menuItems->links() }}
     </div>
 </section>
 
