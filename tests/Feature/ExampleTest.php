@@ -17,8 +17,13 @@ test('customer home navigation shows feedback link', function () {
         ->assertOk()
         ->assertSee('href="'.route('dashboard').'"', false)
         ->assertSee(route('feedback'))
+        ->assertSee(route('settings.profile'))
         ->assertSee('Feedback')
+        ->assertSee('aria-label="Open customer menu"', false)
+        ->assertSee('Settings')
+        ->assertSee('Log out')
         ->assertSee('Popular')
         ->assertSee('Deals')
+        ->assertDontSee('class="btn btn-primary-action">Log out</button>', false)
         ->assertDontSee('>Dashboard</a>', false);
 });

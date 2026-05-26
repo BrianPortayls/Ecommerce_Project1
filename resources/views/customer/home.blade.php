@@ -86,10 +86,32 @@
 
                     <div class="ms-lg-auto d-flex align-items-lg-center gap-2 nav-actions">
                         @auth
-                            <form method="POST" action="{{ route('logout') }}" class="m-0">
-                                @csrf
-                                <button type="submit" class="btn btn-primary-action">Log out</button>
-                            </form>
+                            <div class="dropdown">
+                                <button class="customer-badge dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Open customer menu">
+                                    <img src="{{ asset('images/customer-account-icon.png') }}" alt="">
+                                </button>
+
+                                <div class="dropdown-menu dropdown-menu-end customer-menu">
+                                    <div class="customer-menu-header">
+                                        <img src="{{ asset('images/customer-account-icon.png') }}" alt="">
+                                        <strong>{{ auth()->user()->name }}</strong>
+                                        <span>{{ auth()->user()->email }}</span>
+                                    </div>
+
+                                    <a class="customer-menu-item" href="{{ route('settings.profile') }}">
+                                        <i class="fa-solid fa-user-gear"></i>
+                                        Settings
+                                    </a>
+
+                                    <form method="POST" action="{{ route('logout') }}" class="m-0">
+                                        @csrf
+                                        <button type="submit" class="customer-menu-item danger">
+                                            <i class="fa-solid fa-right-from-bracket"></i>
+                                            Log out
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
                         @else
                             <a href="{{ route('login') }}" class="btn btn-soft">Log in</a>
                             <a href="{{ route('register') }}" class="btn btn-primary-action">Register</a>

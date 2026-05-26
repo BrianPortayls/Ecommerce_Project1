@@ -69,7 +69,6 @@
 
                 <div class="collapse navbar-collapse" id="dashboardNav">
                     <div class="navbar-nav ms-lg-3 me-lg-auto nav-links">
-                        <a class="nav-link active" href="{{ route('dashboard') }}">Dashboard</a>
                         <a class="nav-link" href="{{ route('menus') }}">Menus</a>
                         <a class="nav-link" href="#orders">Orders</a>
                         <a class="nav-link" href="{{ route('feedback') }}">Feedback</a>

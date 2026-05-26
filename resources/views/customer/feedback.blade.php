@@ -47,19 +47,45 @@
 
                 <div class="collapse navbar-collapse" id="feedbackNav">
                     <div class="navbar-nav ms-lg-3 me-lg-auto nav-links">
-                        <a class="nav-link" href="{{ route('dashboard') }}">Dashboard</a>
-                        <a class="nav-link" href="{{ route('menus') }}">Menus</a>
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="{{ route('menus') }}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Menus
+                            </a>
+                            <div class="dropdown-menu nav-dropdown">
+                                <a class="dropdown-item" href="{{ route('menus') }}">Full menu</a>
+                                <a class="dropdown-item" href="{{ route('home') }}#popular">Popular</a>
+                                <a class="dropdown-item" href="{{ route('home') }}#deals">Deals</a>
+                            </div>
+                        </div>
                         <a class="nav-link active" href="{{ route('feedback') }}">Feedback</a>
-                        <a class="nav-link" href="{{ route('settings.profile') }}">Settings</a>
                     </div>
 
-                    <form method="POST" action="{{ route('logout') }}" class="ms-lg-auto nav-actions">
-                        @csrf
-                        <span class="customer-badge" aria-label="Customer">
+                    <div class="dropdown ms-lg-auto nav-actions">
+                        <button class="customer-badge dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Open customer menu">
                             <img src="{{ asset('images/customer-account-icon.png') }}" alt="">
-                        </span>
-                        <button type="submit" class="btn btn-soft">Log out</button>
-                    </form>
+                        </button>
+
+                        <div class="dropdown-menu dropdown-menu-end customer-menu">
+                            <div class="customer-menu-header">
+                                <img src="{{ asset('images/customer-account-icon.png') }}" alt="">
+                                <strong>{{ auth()->user()->name }}</strong>
+                                <span>{{ auth()->user()->email }}</span>
+                            </div>
+
+                            <a class="customer-menu-item" href="{{ route('settings.profile') }}">
+                                <i class="fa-solid fa-user-gear"></i>
+                                Settings
+                            </a>
+
+                            <form method="POST" action="{{ route('logout') }}" class="m-0">
+                                @csrf
+                                <button type="submit" class="customer-menu-item danger">
+                                    <i class="fa-solid fa-right-from-bracket"></i>
+                                    Log out
+                                </button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </nav>
