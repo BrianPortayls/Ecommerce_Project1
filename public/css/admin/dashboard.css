@@ -909,6 +909,25 @@ textarea {
     gap: 24px;
 }
 
+.admin-analytics-charts,
+.revenue-analytics-card {
+    margin-top: 24px;
+}
+
+.chart-card {
+    min-width: 0;
+}
+
+.chart-canvas-wrap {
+    position: relative;
+    height: 320px;
+    margin-top: 22px;
+}
+
+.chart-canvas-wrap.wide {
+    height: 360px;
+}
+
 .dashboard-card {
     padding: 24px;
 }
