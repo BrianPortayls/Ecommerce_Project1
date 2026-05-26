@@ -61,18 +61,10 @@
                         Analytics
                     </a>
 
-                    <a href="{{ route('home') }}" class="admin-nav-link">
+                    <a href="{{ route('menus') }}" class="admin-nav-link">
                         <i class="fa-solid fa-store"></i>
                         View store
                     </a>
-
-                    <form method="POST" action="{{ route('logout') }}" class="admin-nav-form">
-                        @csrf
-                        <button type="submit" class="admin-nav-sublink-logout">
-                            <i class="fa-solid fa-sign-out-alt"></i>
-                            Log out
-                        </button>
-                    </form>
                 </nav>
 
                 <div class="sidebar-note">
@@ -80,6 +72,14 @@
                     <strong>Lunch rush</strong>
                     <span>Orders are 18% higher than yesterday.</span>
                 </div>
+
+                <form method="POST" action="{{ route('logout') }}" class="admin-sidebar-logout">
+                    @csrf
+                    <button type="submit" class="admin-nav-logout-button">
+                        <i class="fa-solid fa-sign-out-alt"></i>
+                        Log out
+                    </button>
+                </form>
             </aside>
 
             <section class="admin-main">

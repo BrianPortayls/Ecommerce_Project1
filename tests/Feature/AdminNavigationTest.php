@@ -15,8 +15,11 @@ test('admin sidebar links route to admin sections', function () {
         ->assertSee(route('admin.deliveries.index', absolute: false))
         ->assertSee(route('admin.settings.index', absolute: false))
         ->assertSee(route('admin.analytics.index', absolute: false))
+        ->assertSee(route('menus', absolute: false))
         ->assertSee('Analytics')
-        ->assertSee('View store');
+        ->assertSee('View store')
+        ->assertSee('admin-sidebar-logout', false)
+        ->assertSeeInOrder(['</nav>', 'admin-sidebar-logout'], false);
 
     collect([
         'admin.orders.index' => 'Order management',
