@@ -54,28 +54,38 @@
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarNav">
+                    @auth
+                        @php
+                            $dashboardRoute = match (auth()->user()->role) {
+                                'admin' => route('admin.dashboard'),
+                                'manager' => route('manager.dashboard'),
+                                default => route('dashboard'),
+                            };
+                        @endphp
+                    @endauth
+
                     <div class="navbar-nav ms-lg-3 me-lg-auto nav-links">
-                        <a class="nav-link" href="{{ route('menus') }}">Menus</a>
-                        <a class="nav-link" href="#about">About Us</a>
-                        <a class="nav-link" href="#popular">Popular</a>
-                        <a class="nav-link" href="#deals">Deals</a>
+                        <a class="nav-link" href="{{ auth()->check() ? $dashboardRoute : route('home') }}">Home</a>
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="{{ route('menus') }}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Menus
+                            </a>
+                            <div class="dropdown-menu nav-dropdown">
+                                <a class="dropdown-item" href="{{ route('menus') }}">Full menu</a>
+                                <a class="dropdown-item" href="#popular">Popular</a>
+                                <a class="dropdown-item" href="#deals">Deals</a>
+                            </div>
+                        </div>
                         @auth
                             @if (auth()->user()->role === 'customer')
                                 <a class="nav-link" href="{{ route('feedback') }}">Feedback</a>
                             @endif
                         @endauth
+                        <a class="nav-link" href="#about">About Us</a>
                     </div>
 
                     <div class="ms-lg-auto d-flex align-items-lg-center gap-2 nav-actions">
                         @auth
-                            @php
-                                $dashboardRoute = match (auth()->user()->role) {
-                                    'admin' => route('admin.dashboard'),
-                                    'manager' => route('manager.dashboard'),
-                                    default => route('dashboard'),
-                                };
-                            @endphp
-                            <a href="{{ $dashboardRoute }}" class="btn btn-soft">Dashboard</a>
                             <form method="POST" action="{{ route('logout') }}" class="m-0">
                                 @csrf
                                 <button type="submit" class="btn btn-primary-action">Log out</button>

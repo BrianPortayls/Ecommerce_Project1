@@ -12,7 +12,11 @@ test('authenticated users can visit the dashboard', function () {
     $this->actingAs($user);
 
     $response = $this->get('/dashboard');
-    $response->assertStatus(200);
+    $response
+        ->assertStatus(200)
+        ->assertSee('Open customer menu')
+        ->assertSee('Settings')
+        ->assertSee('Log out');
 });
 
 test('admin users can not visit the customer dashboard', function () {

@@ -15,6 +15,10 @@ test('customer home navigation shows feedback link', function () {
     $this->actingAs($user)
         ->get(route('home', absolute: false))
         ->assertOk()
-        ->assertSee(route('feedback', absolute: false))
-        ->assertSee('Feedback');
+        ->assertSee('href="'.route('dashboard').'"', false)
+        ->assertSee(route('feedback'))
+        ->assertSee('Feedback')
+        ->assertSee('Popular')
+        ->assertSee('Deals')
+        ->assertDontSee('>Dashboard</a>', false);
 });

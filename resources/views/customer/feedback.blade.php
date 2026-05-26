@@ -55,7 +55,9 @@
 
                     <form method="POST" action="{{ route('logout') }}" class="ms-lg-auto nav-actions">
                         @csrf
-                        <span class="role-pill">Customer</span>
+                        <span class="customer-badge" aria-label="Customer">
+                            <img src="{{ asset('images/customer-account-icon.png') }}" alt="">
+                        </span>
                         <button type="submit" class="btn btn-soft">Log out</button>
                     </form>
                 </div>

@@ -489,6 +489,10 @@ a {
     transform: translateY(-2px);
 }
 
+.category-pill:hover {
+    text-decoration: none;
+}
+
 .menu-card {
     height: 100%;
     overflow: hidden;
@@ -662,6 +666,28 @@ a {
 
 .auth-actions .btn {
     width: 100%;
+}
+
+.empty-menu-state {
+    display: grid;
+    justify-items: center;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    background: #fff;
+    padding: 34px;
+    text-align: center;
+    box-shadow: 0 16px 42px rgba(23, 33, 28, 0.08);
+}
+
+.empty-menu-state h3 {
+    margin: 14px 0 8px;
+    font-size: 24px;
+    font-weight: 800;
+}
+
+.empty-menu-state p {
+    max-width: 360px;
+    color: var(--muted);
 }
 
 @media (prefers-reduced-motion: reduce) {

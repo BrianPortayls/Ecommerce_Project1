@@ -6,7 +6,6 @@
         ['name' => 'Sizzling', 'items' => '8 plates', 'icon' => 'fa-fire-burner', 'color' => 'sun', 'description' => 'Hot plate favorites served rich, savory, and fresh.'],
         ['name' => 'Chicken', 'items' => '10 meals', 'icon' => 'fa-drumstick-bite', 'color' => 'rose', 'description' => 'Grilled, crispy, and saucy chicken comfort meals.'],
         ['name' => 'Pancit', 'items' => '6 dishes', 'icon' => 'fa-bowl-food', 'color' => 'sky', 'description' => 'Noodle dishes made for solo cravings or sharing.'],
-        ['name' => 'Drinks', 'items' => '9 choices', 'icon' => 'fa-glass-water', 'color' => 'mint', 'description' => 'Cold drinks, refreshers, and sweet pairings.'],
     ];
 
     $featured = [
@@ -96,6 +95,8 @@
             'image' => 'https://images.unsplash.com/photo-1585032226651-759b368d7246?q=80&w=1200&auto=format&fit=crop',
         ],
     ];
+
+    $selectedCategory = $selectedCategory ?? 'All';
 @endphp
 
 <!DOCTYPE html>
@@ -136,17 +137,6 @@
 
                     <div class="ms-lg-auto d-flex align-items-lg-center gap-2 nav-actions">
                         @auth
-                            @php
-                                $dashboardRoute = match (auth()->user()->role) {
-                                    'admin' => route('admin.dashboard'),
-                                    'manager' => route('manager.dashboard'),
-                                    default => route('dashboard'),
-                                };
-                            @endphp
-                            <a href="{{ $dashboardRoute }}" class="btn btn-soft">Dashboard</a>
-                            @if (auth()->user()->role === 'customer')
-                                <a href="{{ route('feedback') }}" class="btn btn-soft">Feedback</a>
-                            @endif
                             <form method="POST" action="{{ route('logout') }}" class="m-0">
                                 @csrf
                                 <button type="submit" class="btn btn-primary-action">Log out</button>
@@ -215,7 +205,7 @@
 
                     <div class="menu-category-grid">
                         @foreach ($menuCategories as $category)
-                            <a href="#specials" class="menu-category-card category-{{ $category['color'] }}" style="--delay: {{ $loop->index * 90 }}ms">
+                            <a href="{{ route('menus', ['category' => $category['name']]) }}#specials" class="menu-category-card category-{{ $category['color'] }}" style="--delay: {{ $loop->index * 90 }}ms">
                                 <span class="menu-category-icon">
                                     <i class="fa-solid {{ $category['icon'] }}"></i>
                                 </span>
@@ -247,14 +237,16 @@
 
                     <div class="category-pills" aria-label="Menu categories">
                         @foreach ($categories as $category)
-                            <button class="category-pill {{ $loop->first ? 'active' : '' }}" type="button">{{ $category }}</button>
+                            <a class="category-pill {{ $selectedCategory === $category ? 'active' : '' }}" href="{{ $category === 'All' ? route('menus').'#specials' : route('menus', ['category' => $category]).'#specials' }}">
+                                {{ $category }}
+                            </a>
                         @endforeach
                     </div>
 
                     <div class="row g-4">
                         <div class="col-xl-9">
                             <div class="row g-4">
-                                @foreach ($menus as $menu)
+                                @forelse ($menus as $menu)
                                     <div class="col-lg-4 col-md-6">
                                         <article class="menu-card">
                                             <div class="menu-image-wrap">
@@ -279,7 +271,16 @@
                                             </div>
                                         </article>
                                     </div>
-                                @endforeach
+                                @empty
+                                    <div class="col-12">
+                                        <div class="empty-menu-state">
+                                            <span class="summary-icon"><i class="fa-solid fa-bowl-food"></i></span>
+                                            <h3>No meals found</h3>
+                                            <p>Try another category or return to the full menu.</p>
+                                            <a href="{{ route('menus') }}#specials" class="btn btn-soft">Show all meals</a>
+                                        </div>
+                                    </div>
+                                @endforelse
                             </div>
                         </div>
 

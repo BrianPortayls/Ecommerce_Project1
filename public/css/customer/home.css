@@ -136,6 +136,28 @@ a {
     transform: scaleX(1);
 }
 
+.nav-dropdown {
+    min-width: 180px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 8px;
+    box-shadow: 0 18px 44px rgba(23, 33, 28, 0.12);
+}
+
+.nav-dropdown .dropdown-item {
+    border-radius: 9px;
+    color: var(--muted);
+    padding: 10px 12px;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.nav-dropdown .dropdown-item:hover,
+.nav-dropdown .dropdown-item:focus {
+    background: #edf6f0;
+    color: var(--green);
+}
+
 .btn-soft,
 .btn-primary-action,
 .btn-light-action {

@@ -73,14 +73,34 @@
                         <a class="nav-link" href="{{ route('menus') }}">Menus</a>
                         <a class="nav-link" href="#orders">Orders</a>
                         <a class="nav-link" href="{{ route('feedback') }}">Feedback</a>
-                        <a class="nav-link" href="{{ route('settings.profile') }}">Settings</a>
                     </div>
 
-                    <form method="POST" action="{{ route('logout') }}" class="ms-lg-auto nav-actions">
-                        @csrf
-                        <span class="role-pill">Customer</span>
-                        <button type="submit" class="btn btn-soft">Log out</button>
-                    </form>
+                    <div class="dropdown ms-lg-auto nav-actions">
+                        <button class="customer-badge dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Open customer menu">
+                            <img src="{{ asset('images/customer-account-icon.png') }}" alt="">
+                        </button>
+
+                        <div class="dropdown-menu dropdown-menu-end customer-menu">
+                            <div class="customer-menu-header">
+                                <img src="{{ asset('images/customer-account-icon.png') }}" alt="">
+                                <strong>{{ auth()->user()->name }}</strong>
+                                <span>{{ auth()->user()->email }}</span>
+                            </div>
+
+                            <a class="customer-menu-item" href="{{ route('settings.profile') }}">
+                                <i class="fa-solid fa-user-gear"></i>
+                                Settings
+                            </a>
+
+                            <form method="POST" action="{{ route('logout') }}" class="m-0">
+                                @csrf
+                                <button type="submit" class="customer-menu-item danger">
+                                    <i class="fa-solid fa-right-from-bracket"></i>
+                                    Log out
+                                </button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </nav>
