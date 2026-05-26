@@ -1753,6 +1753,116 @@ textarea {
     font-size: 13px;
 }
 
+.customer-records-card {
+    padding: 26px;
+}
+
+.customer-records-table {
+    min-width: 980px;
+}
+
+.customer-records-table th {
+    padding: 18px 12px;
+}
+
+.customer-records-table td {
+    vertical-align: middle;
+    padding: 16px 12px;
+}
+
+.customer-records-table tbody tr {
+    transition: background 180ms ease;
+}
+
+.customer-records-table tbody tr:hover {
+    background: rgba(9, 185, 129, 0.045);
+}
+
+.customer-profile-edit {
+    display: grid;
+    grid-template-columns: 46px minmax(0, 1fr);
+    align-items: center;
+    gap: 14px;
+    max-width: 620px;
+}
+
+.customer-avatar {
+    display: grid;
+    width: 46px;
+    height: 46px;
+    place-items: center;
+    border-radius: 14px;
+    background: var(--green-soft);
+    color: var(--green);
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.customer-fields {
+    display: grid;
+    gap: 7px;
+}
+
+.customer-fields input {
+    width: 100%;
+    min-height: 38px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    background: transparent;
+    color: var(--ink);
+    padding: 7px 10px;
+    font-size: 14px;
+    font-weight: 800;
+    transition: border 180ms ease, background 180ms ease, box-shadow 180ms ease;
+}
+
+.customer-fields input[type="email"] {
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.customer-fields input:hover,
+.customer-fields input:focus {
+    border-color: var(--line);
+    background: var(--surface-deep);
+    outline: 0;
+}
+
+.customer-fields input:focus {
+    box-shadow: 0 0 0 4px rgba(9, 185, 129, 0.1);
+}
+
+.customer-metric,
+.customer-date {
+    display: inline-flex;
+    align-items: center;
+    min-height: 34px;
+    color: var(--ink);
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.customer-date {
+    color: #334155;
+}
+
+.customer-action-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.customer-action-stack .admin-menu-action-button {
+    flex: 0 0 auto;
+    min-width: 86px;
+    min-height: 38px;
+}
+
+.customer-action-stack .delete-form {
+    margin: 0;
+}
+
 .orders-table small {
     color: var(--muted);
     font-weight: 600;
