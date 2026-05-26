@@ -144,6 +144,9 @@
                                 };
                             @endphp
                             <a href="{{ $dashboardRoute }}" class="btn btn-soft">Dashboard</a>
+                            @if (auth()->user()->role === 'customer')
+                                <a href="{{ route('feedback') }}" class="btn btn-soft">Feedback</a>
+                            @endif
                             <form method="POST" action="{{ route('logout') }}" class="m-0">
                                 @csrf
                                 <button type="submit" class="btn btn-primary-action">Log out</button>
@@ -322,6 +325,11 @@
                 <div class="footer-links">
                     <a href="{{ route('home') }}">Home</a>
                     <a href="{{ route('menus') }}">Menus</a>
+                    @auth
+                        @if (auth()->user()->role === 'customer')
+                            <a href="{{ route('feedback') }}">Feedback</a>
+                        @endif
+                    @endauth
                     <a href="#">Help</a>
                 </div>
             </div>

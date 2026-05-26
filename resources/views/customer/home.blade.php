@@ -59,6 +59,11 @@
                         <a class="nav-link" href="#about">About Us</a>
                         <a class="nav-link" href="#popular">Popular</a>
                         <a class="nav-link" href="#deals">Deals</a>
+                        @auth
+                            @if (auth()->user()->role === 'customer')
+                                <a class="nav-link" href="{{ route('feedback') }}">Feedback</a>
+                            @endif
+                        @endauth
                     </div>
 
                     <div class="ms-lg-auto d-flex align-items-lg-center gap-2 nav-actions">

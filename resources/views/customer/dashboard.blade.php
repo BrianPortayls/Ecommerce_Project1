@@ -72,6 +72,7 @@
                         <a class="nav-link active" href="{{ route('dashboard') }}">Dashboard</a>
                         <a class="nav-link" href="{{ route('menus') }}">Menus</a>
                         <a class="nav-link" href="#orders">Orders</a>
+                        <a class="nav-link" href="{{ route('feedback') }}">Feedback</a>
                         <a class="nav-link" href="{{ route('settings.profile') }}">Settings</a>
                     </div>
 
@@ -226,6 +227,7 @@
                 <div class="footer-links">
                     <a href="{{ route('home') }}">Home</a>
                     <a href="{{ route('menus') }}">Menus</a>
+                    <a href="{{ route('feedback') }}">Feedback</a>
                     <a href="{{ route('settings.profile') }}">Settings</a>
                 </div>
             </div>
